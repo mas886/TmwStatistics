@@ -39,7 +39,7 @@ public class Characters {
         try {
             db db = new db();
             Statement s = db.getConnection().createStatement();
-            ResultSet rs = s.executeQuery("SELECT Name FROM `Characters` WHERE Name='" + Name + "'");
+            ResultSet rs = s.executeQuery("SELECT Name FROM `Characters` WHERE Name=\"" + Name + "\"");
             while (rs.next()) {
                 str = rs.getString("Name");
             }
@@ -60,7 +60,7 @@ public class Characters {
         try {
             db db = new db();
             Statement s = db.getConnection().createStatement();
-            s.executeUpdate("INSERT INTO Characters(Name, lastConnection, firstConnection) VALUES('" + Name + "',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)");
+            s.executeUpdate("INSERT INTO Characters(Name, lastConnection, firstConnection) VALUES(\"" + Name + "\",CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)");
             res = "Canvis efectuats correctament.";
             try {
                 db.closeDB();
@@ -79,7 +79,7 @@ public class Characters {
         try {
             db db = new db();
             Statement s = db.getConnection().createStatement();
-            s.executeUpdate("UPDATE `Characters` SET `lastConnection` = CURRENT_TIMESTAMP WHERE `Characters`.`Name` = '" + Name + "'");
+            s.executeUpdate("UPDATE `Characters` SET `lastConnection` = CURRENT_TIMESTAMP WHERE `Characters`.`Name` = \"" + Name + "\"");
             res = "Canvis efectuats correctament.";
             try {
                 db.closeDB();

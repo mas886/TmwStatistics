@@ -39,7 +39,7 @@ public class DailyTime {
         try {
             db db = new db();
             Statement s = db.getConnection().createStatement();
-            ResultSet rs = s.executeQuery("SELECT date FROM `UserDailyTime` WHERE `characterId`=(SELECT characterId FROM Characters WHERE Name='" + Name + "') AND date=CURRENT_DATE");
+            ResultSet rs = s.executeQuery("SELECT date FROM `UserDailyTime` WHERE `characterId`=(SELECT characterId FROM Characters WHERE Name=\"" + Name + "\") AND date=CURRENT_DATE");
             while (rs.next()) {
                 str = rs.getString("date");
             }
@@ -61,7 +61,7 @@ public class DailyTime {
         try {
             db db = new db();
             Statement s = db.getConnection().createStatement();
-            s.executeUpdate("INSERT INTO UserDailyTime(characterId, date, minutes) VALUES((SELECT characterId FROM Characters WHERE Name='" + Name + "'), CURRENT_DATE, 0.5)");
+            s.executeUpdate("INSERT INTO UserDailyTime(characterId, date, minutes) VALUES((SELECT characterId FROM Characters WHERE Name=\"" + Name + "\"), CURRENT_DATE, 0.5)");
             try {
                 db.closeDB();
             } catch (Exception e) {
@@ -79,7 +79,7 @@ public class DailyTime {
         try {
             db db = new db();
             Statement s = db.getConnection().createStatement();
-            s.executeUpdate("UPDATE UserDailyTime SET minutes=minutes+0.5 WHERE date=CURRENT_DATE AND characterId=(SELECT characterId FROM Characters WHERE Name='" + Name + "')");
+            s.executeUpdate("UPDATE UserDailyTime SET minutes=minutes+0.5 WHERE date=CURRENT_DATE AND characterId=(SELECT characterId FROM Characters WHERE Name=\"" + Name + "\")");
             try {
                 db.closeDB();
             } catch (Exception e) {

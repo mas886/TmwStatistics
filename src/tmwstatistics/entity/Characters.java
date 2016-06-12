@@ -55,12 +55,12 @@ public class Characters {
         return str.length() >= 1;
     }
 
-    public String newChar(String Name) {
+    public String newChar(String Name, String dateTime) {
         String res = "";
         try {
             db db = new db();
             Statement s = db.getConnection().createStatement();
-            s.executeUpdate("INSERT INTO Characters(Name, lastConnection, firstConnection) VALUES(\"" + Name + "\",CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)");
+            s.executeUpdate("INSERT INTO Characters(Name, lastConnection, firstConnection) VALUES(\"" + Name + "\",'"+dateTime+"','"+dateTime+"')");
             res = "Canvis efectuats correctament.";
             try {
                 db.closeDB();
@@ -74,12 +74,12 @@ public class Characters {
         return res;
     }
 
-    public String updateChar(String Name) {
+    public String updateChar(String Name, String dateTime) {
         String res = "";
         try {
             db db = new db();
             Statement s = db.getConnection().createStatement();
-            s.executeUpdate("UPDATE `Characters` SET `lastConnection` = CURRENT_TIMESTAMP WHERE `Characters`.`Name` = \"" + Name + "\"");
+            s.executeUpdate("UPDATE `Characters` SET `lastConnection` ='"+dateTime+"' WHERE `Characters`.`Name` = \"" + Name + "\"");
             res = "Canvis efectuats correctament.";
             try {
                 db.closeDB();

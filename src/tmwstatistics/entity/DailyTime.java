@@ -26,7 +26,7 @@ package tmwstatistics.entity;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import tmwstatistics.db.db;
-
+import tmwstatistics.StringActions.StringActions;
 /**
  *
  * @author redrednose
@@ -56,12 +56,14 @@ public class DailyTime {
 
     }
 
-    public String newDailyConnection(String Name) {
+    public String newDailyConnection(String Name, String dateTime) {
+        StringActions gen=new StringActions();
         String res = "";
+        String date=gen.genDate(dateTime);
         try {
             db db = new db();
             Statement s = db.getConnection().createStatement();
-            s.executeUpdate("INSERT INTO UserDailyTime(characterId, date, minutes) VALUES((SELECT characterId FROM Characters WHERE Name=\"" + Name + "\"), CURRENT_DATE, 0.5)");
+            s.executeUpdate("INSERT INTO UserDailyTime(characterId, date, minutes) VALUES((SELECT characterId FROM Characters WHERE Name=\"" + Name + "\"), '"+date+"', 0.5)");
             try {
                 db.closeDB();
             } catch (Exception e) {
@@ -74,12 +76,14 @@ public class DailyTime {
         return res;
     }
 
-    public String updateDailyConnection(String Name) {
+    public String updateDailyConnection(String Name, String dateTime) {
+        StringActions gen=new StringActions();
         String res = "";
+        String date=gen.genDate(dateTime);
         try {
             db db = new db();
             Statement s = db.getConnection().createStatement();
-            s.executeUpdate("UPDATE UserDailyTime SET minutes=minutes+0.5 WHERE date=CURRENT_DATE AND characterId=(SELECT characterId FROM Characters WHERE Name=\"" + Name + "\")");
+            s.executeUpdate("UPDATE UserDailyTime SET minutes=minutes+0.5 WHERE date='"+date+"' AND characterId=(SELECT characterId FROM Characters WHERE Name=\"" + Name + "\")");
             try {
                 db.closeDB();
             } catch (Exception e) {

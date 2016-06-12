@@ -54,12 +54,12 @@ public class LastUpdate {
         return str.length() >= 1;
     }
 
-    public String newLastUpdate() {
+    public String newLastUpdate(String dateTime) {
         String res = "";
         try {
             db db = new db();
             Statement s = db.getConnection().createStatement();
-            s.executeUpdate("INSERT INTO `LastUpdate`(`Id`, `dateTime`) VALUES (1,CURRENT_TIMESTAMP)");
+            s.executeUpdate("INSERT INTO `LastUpdate`(`Id`, `dateTime`) VALUES (1,'"+dateTime+"')");
             try {
                 db.closeDB();
             } catch (Exception e) {
@@ -72,12 +72,12 @@ public class LastUpdate {
         return res;
     }
 
-    public String updateLastUpdate() {
+    public String updateLastUpdate(String dateTime) {
         String res = "";
         try {
             db db = new db();
             Statement s = db.getConnection().createStatement();
-            s.executeUpdate("UPDATE `LastUpdate` SET `dateTime`=CURRENT_TIMESTAMP WHERE Id=1");
+            s.executeUpdate("UPDATE `LastUpdate` SET `dateTime`='"+dateTime+"' WHERE Id=1");
             try {
                 db.closeDB();
             } catch (Exception e) {

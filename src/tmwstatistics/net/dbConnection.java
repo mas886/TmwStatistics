@@ -39,16 +39,16 @@ public class dbConnection {
     public void updateDB(String[] users) {
         insertCharacters(users);
         updateDailyTime(users);
-        updateLastUpdate();
+        updateLastUpdate(users[1]);
     }
 
     private void insertCharacters(String[] users) {
         Characters character = new Characters();
         for (int c = 5; c < users.length - 2; c++) {
             if (!character.exist(users[c])) {
-                character.newChar(users[c]);
+                character.newChar(users[c],users[1]);
             } else {
-                character.updateChar(users[c]);
+                character.updateChar(users[c],users[1]);
             }
         }
     }
@@ -57,20 +57,20 @@ public class dbConnection {
         DailyTime DailyConnection = new DailyTime();
         for (int c = 5; c < users.length - 2; c++) {
             if (!DailyConnection.exist(users[c])) {
-                DailyConnection.newDailyConnection(users[c]);
+                DailyConnection.newDailyConnection(users[c],users[1]);
             } else {
-                DailyConnection.updateDailyConnection(users[c]);
+                DailyConnection.updateDailyConnection(users[c],users[1]);
             }
         }
 
     }
 
-    private void updateLastUpdate() {
+    private void updateLastUpdate(String dateTime) {
         LastUpdate update = new LastUpdate();
         if (!update.exist()) {
-            update.newLastUpdate();
+            update.newLastUpdate(dateTime);
         } else {
-            update.updateLastUpdate();
+            update.updateLastUpdate(dateTime);
         }
     }
 

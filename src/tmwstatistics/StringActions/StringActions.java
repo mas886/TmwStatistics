@@ -39,9 +39,15 @@ public class StringActions {
         for (int c = 0; c < users.length; c++) {
             String reverse = "";
             for (int f = users[c].length() - 1; f >= 0; f--) {
-                if((f==28)&&((users[c].charAt(f) == ')')&&(users[c].charAt(f-1) == 'M')&&(users[c].charAt(f-2) == 'G')&&(users[c].charAt(f-3) == '('))){
-                    f=f-3;
-                }else if ((users[c].charAt(f) != ' ')) {
+                if ((c == 1) && (users[c].charAt(f) == '(')) {
+                    for (int g = f + 1; users[c].charAt(g) != ')'; g++) {
+                        reverse += users[c].charAt(g);
+                    }
+                    users[c] = reverse;
+                    break;
+                } else if ((f == 28) && ((users[c].charAt(f) == ')') && (users[c].charAt(f - 1) == 'M') && (users[c].charAt(f - 2) == 'G') && (users[c].charAt(f - 3) == '('))) {
+                    f = f - 3;
+                } else if ((users[c].charAt(f) != ' ')&&(c!=1)) {
                     for (int g = 0; g < f + 1; g++) {
                         reverse += users[c].charAt(g);
                     }
@@ -49,7 +55,17 @@ public class StringActions {
                     break;
                 }
             }
+
         }
         return users;
     }
+    
+    public String genDate(String dateTime){
+        String date="";
+        for(int c=0;dateTime.charAt(c)!=' ';c++){
+            date+=dateTime.charAt(c);
+        }
+        return date;
+    }
+    
 }

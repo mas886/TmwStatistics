@@ -46,7 +46,7 @@ public class TMWchartsServer {
                 users = act.cleanString(users);
                 act.printUsers(users);
                 db.updateDB(users);
-                Thread.sleep(30000);//If the sleeping time is changed increment of the user time in minutes must be changed aswell
+                Thread.sleep(15000);//If the sleeping time is changed increment of the user time in minutes must be changed aswell
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }

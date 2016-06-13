@@ -29,7 +29,7 @@ import tmwstatistics.StringActions.StringActions;
 
 /**
  *
- * @author redrednose
+ * @author mas886/redrednose/Arnau
  */
 public class TMWchartsServer {
 

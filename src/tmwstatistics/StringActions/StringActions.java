@@ -25,7 +25,7 @@ package tmwstatistics.StringActions;
 
 /**
  *
- * @author redrednose
+ * @author mas886/redrednose/Arnau
  */
 public class StringActions {
 

@@ -30,7 +30,7 @@ import java.net.URL;
 
 /**
  *
- * @author redrednose
+ * @author mas886/redrednose/Arnau
  */
 public class WebConnection {
 

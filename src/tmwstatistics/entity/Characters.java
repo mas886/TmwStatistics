@@ -29,7 +29,7 @@ import tmwstatistics.db.db;
 
 /**
  *
- * @author redrednose
+ * @author mas886/redrednose/Arnau
  */
 public class Characters {
 

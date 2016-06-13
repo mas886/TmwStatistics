@@ -27,19 +27,22 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import tmwstatistics.db.db;
 import tmwstatistics.StringActions.StringActions;
+
 /**
  *
  * @author mas886/redrednose/Arnau
  */
 public class DailyTime {
 
-    public boolean exist(String Name) {
+    public boolean exist(String Name, String dateTime) {
         boolean res;
         String str = "";
         try {
             db db = new db();
+            StringActions gen = new StringActions();
+            String date = gen.genDate(dateTime);
             Statement s = db.getConnection().createStatement();
-            ResultSet rs = s.executeQuery("SELECT date FROM `UserDailyTime` WHERE `characterId`=(SELECT characterId FROM Characters WHERE Name=\"" + Name + "\") AND date=CURRENT_DATE");
+            ResultSet rs = s.executeQuery("SELECT date FROM `UserDailyTime` WHERE `characterId`=(SELECT characterId FROM Characters WHERE Name=\"" + Name + "\") AND date='"+date+"'");
             while (rs.next()) {
                 str = rs.getString("date");
             }
@@ -50,20 +53,20 @@ public class DailyTime {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return exist(Name);
+            return exist(Name, dateTime);
         }
         return str.length() >= 1;
 
     }
 
     public String newDailyConnection(String Name, String dateTime) {
-        StringActions gen=new StringActions();
+        StringActions gen = new StringActions();
         String res = "";
-        String date=gen.genDate(dateTime);
+        String date = gen.genDate(dateTime);
         try {
             db db = new db();
             Statement s = db.getConnection().createStatement();
-            s.executeUpdate("INSERT INTO UserDailyTime(characterId, date, minutes) VALUES((SELECT characterId FROM Characters WHERE Name=\"" + Name + "\"), '"+date+"', 0.25)");
+            s.executeUpdate("INSERT INTO UserDailyTime(characterId, date, minutes) VALUES((SELECT characterId FROM Characters WHERE Name=\"" + Name + "\"), '" + date + "', 0.25)");
             try {
                 db.closeDB();
             } catch (Exception e) {
@@ -77,13 +80,13 @@ public class DailyTime {
     }
 
     public String updateDailyConnection(String Name, String dateTime) {
-        StringActions gen=new StringActions();
+        StringActions gen = new StringActions();
         String res = "";
-        String date=gen.genDate(dateTime);
+        String date = gen.genDate(dateTime);
         try {
             db db = new db();
             Statement s = db.getConnection().createStatement();
-            s.executeUpdate("UPDATE UserDailyTime SET minutes=minutes+0.25 WHERE date='"+date+"' AND characterId=(SELECT characterId FROM Characters WHERE Name=\"" + Name + "\")");
+            s.executeUpdate("UPDATE UserDailyTime SET minutes=minutes+0.25 WHERE date='" + date + "' AND characterId=(SELECT characterId FROM Characters WHERE Name=\"" + Name + "\")");
             try {
                 db.closeDB();
             } catch (Exception e) {

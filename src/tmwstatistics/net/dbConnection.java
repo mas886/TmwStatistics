@@ -56,7 +56,7 @@ public class dbConnection {
     private void updateDailyTime(String[] users) {
         DailyTime DailyConnection = new DailyTime();
         for (int c = 5; c < users.length - 2; c++) {
-            if (!DailyConnection.exist(users[c])) {
+            if (!DailyConnection.exist(users[c],users[1])) {
                 DailyConnection.newDailyConnection(users[c],users[1]);
             } else {
                 DailyConnection.updateDailyConnection(users[c],users[1]);

@@ -33,9 +33,6 @@ import tmwstatistics.StringActions.StringActions;
  */
 public class TMWchartsServer {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         WebConnection connect = new WebConnection();
         StringActions act = new StringActions();

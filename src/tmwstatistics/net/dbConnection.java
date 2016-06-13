@@ -37,9 +37,9 @@ import tmwstatistics.db.db;
 public class dbConnection {
 
     public void updateDB(String[] users) {
+        updateLastUpdate(users[1]);
         insertCharacters(users);
         updateDailyTime(users);
-        updateLastUpdate(users[1]);
     }
 
     private void insertCharacters(String[] users) {

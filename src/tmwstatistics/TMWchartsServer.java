@@ -31,20 +31,25 @@ import tmwstatistics.StringActions.StringActions;
  *
  * @author mas886/redrednose/Arnau
  */
-public class TMWchartsServer {
+public class TMWchartsServer implements Runnable {
 
-    public static void main(String[] args) {
+    public void run() {
         WebConnection connect = new WebConnection();
         StringActions act = new StringActions();
         dbConnection db = new dbConnection();
+        String[] users = connect.getUsers();
+        users = act.cleanString(users);
+        act.printUsers(users);
+        if (users.length > 1) {
+            db.updateDB(users);
+        }
+    }
+
+    public static void main(String[] args) {
         while (true) {
             try {
-                String[] users = connect.getUsers();
-                users = act.cleanString(users);
-                act.printUsers(users);
-                if (users.length>1){
-                    db.updateDB(users);
-                }
+                (new Thread(new TMWchartsServer())).start();
+                System.out.println("\nWaiting 15s.");
                 Thread.sleep(15000);//If the sleeping time is changed increment of the user time in minutes must be changed aswell
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();

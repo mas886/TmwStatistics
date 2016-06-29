@@ -33,25 +33,25 @@ import tmwstatistics.db.db;
  */
 public class LastUpdate {
 
-    public boolean exist() {
-        boolean res;
-        String str = "";
+    public String exist() {
+        String dateTime = "";
         try {
             db db = new db();
             Statement s = db.getConnection().createStatement();
             ResultSet rs = s.executeQuery("SELECT dateTime FROM `LastUpdate` WHERE `Id`=1");
             while (rs.next()) {
-                str = rs.getString("dateTime");
+                dateTime = rs.getString("dateTime");
             }
             try {
                 db.closeDB();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            return dateTime;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return str.length() >= 1;
+        return dateTime;
     }
 
     public String newLastUpdate(String dateTime) {

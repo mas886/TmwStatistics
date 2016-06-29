@@ -67,7 +67,7 @@ public class dbConnection {
 
     private void updateLastUpdate(String dateTime) {
         LastUpdate update = new LastUpdate();
-        if (!update.exist()) {
+        if (update.exist().length()<1) {
             update.newLastUpdate(dateTime);
         } else {
             update.updateLastUpdate(dateTime);

@@ -23,6 +23,11 @@
  */
 package tmwstatistics.StringActions;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author mas886/redrednose/Arnau
@@ -47,7 +52,7 @@ public class StringActions {
                     break;
                 } else if ((f == 28) && ((users[c].charAt(f) == ')') && (users[c].charAt(f - 1) == 'M') && (users[c].charAt(f - 2) == 'G') && (users[c].charAt(f - 3) == '('))) {
                     f = f - 3;
-                } else if ((users[c].charAt(f) != ' ')&&(c!=1)) {
+                } else if ((users[c].charAt(f) != ' ') && (c != 1)) {
                     for (int g = 0; g < f + 1; g++) {
                         reverse += users[c].charAt(g);
                     }
@@ -59,13 +64,24 @@ public class StringActions {
         }
         return users;
     }
-    
-    public String genDate(String dateTime){
-        String date="";
-        for(int c=0;dateTime.charAt(c)!=' ';c++){
-            date+=dateTime.charAt(c);
+
+    public String genDate(String dateTime) {
+        String date = "";
+        for (int c = 0; dateTime.charAt(c) != ' '; c++) {
+            date += dateTime.charAt(c);
         }
         return date;
     }
     
+    /*If dateTime1 is before dateTime2 returns true*/
+    public boolean compareDateTime(String dateTime1, String dateTime2) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            return sdf.parse(dateTime1).before(sdf.parse(dateTime2));
+        } catch (ParseException ex) {
+            Logger.getLogger(StringActions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
 }

@@ -26,9 +26,7 @@ package tmwstatistics.net;
 import tmwstatistics.entity.LastUpdate;
 import tmwstatistics.entity.DailyTime;
 import tmwstatistics.entity.Characters;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import tmwstatistics.db.db;
+import tmwstatistics.StringActions.StringActions;
 
 /**
  *
@@ -46,9 +44,9 @@ public class dbConnection {
         Characters character = new Characters();
         for (int c = 5; c < users.length - 2; c++) {
             if (!character.exist(users[c])) {
-                character.newChar(users[c],users[1]);
+                character.newChar(users[c], users[1]);
             } else {
-                character.updateChar(users[c],users[1]);
+                character.updateChar(users[c], users[1]);
             }
         }
     }
@@ -56,21 +54,23 @@ public class dbConnection {
     private void updateDailyTime(String[] users) {
         DailyTime DailyConnection = new DailyTime();
         for (int c = 5; c < users.length - 2; c++) {
-            if (!DailyConnection.exist(users[c],users[1])) {
-                DailyConnection.newDailyConnection(users[c],users[1]);
+            if (!DailyConnection.exist(users[c], users[1])) {
+                DailyConnection.newDailyConnection(users[c], users[1]);
             } else {
-                DailyConnection.updateDailyConnection(users[c],users[1]);
+                DailyConnection.updateDailyConnection(users[c], users[1]);
             }
         }
 
     }
 
-    private void updateLastUpdate(String dateTime) {
+    private void updateLastUpdate(String newUpdateDate) {
+        StringActions act = new StringActions();
         LastUpdate update = new LastUpdate();
-        if (update.exist().length()<1) {
-            update.newLastUpdate(dateTime);
-        } else {
-            update.updateLastUpdate(dateTime);
+        String LastUpdateDate = update.exist();
+        if (LastUpdateDate.length() < 1) {
+            update.newLastUpdate(newUpdateDate);
+        } else if (act.compareDateTime(LastUpdateDate, newUpdateDate)) {
+            update.updateLastUpdate(newUpdateDate);
         }
     }
 
